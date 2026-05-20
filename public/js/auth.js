@@ -8,12 +8,38 @@
   })();
 
   const role = window.__ROLE__ || inferredRole || 'doctor';
+
+  // Sync UI (supports new unified /login.html)
+  const roleSelect = document.getElementById('role');
+  if (roleSelect) {
+
+    roleSelect.value = role;
+    roleSelect.addEventListener('change', () => {
+      // Persist selection in-memory via window.__ROLE__
+      window.__ROLE__ = roleSelect.value;
+      // Toggle fields
+      const isPatient = window.__ROLE__ === 'patient';
+      const patientFields = document.getElementById('patientFields');
+      const staffFields = document.getElementById('staffFields');
+      if (patientFields) patientFields.style.display = isPatient ? 'block' : 'none';
+      if (staffFields) staffFields.style.display = isPatient ? 'none' : 'block';
+    });
+
+    // initial toggle
+    const isPatient = roleSelect.value === 'patient';
+    const patientFields = document.getElementById('patientFields');
+    const staffFields = document.getElementById('staffFields');
+    if (patientFields) patientFields.style.display = isPatient ? 'block' : 'none';
+    if (staffFields) staffFields.style.display = isPatient ? 'none' : 'block';
+  }
+
   const form = document.getElementById('form');
   const err = document.getElementById('err');
 
   if (!form) return;
 
   form.addEventListener('submit', async (e) => {
+
     e.preventDefault();
     err.textContent = '';
 
@@ -49,5 +75,6 @@
     }
   });
 })();
+
 
 

@@ -1,7 +1,7 @@
-# TODO
+- [x] Remove old role-specific login pages from `public/`.
+- [x] Ensure landing page (`public/index.html`) links only to `/login.html`.
 
-- [x] Inspect existing UI assets (public/index.html, public/css/theme.css)
-- [x] Update public/index.html UI/UX: clean copy, improve hero/section structure, and enhance stats script
-- [ ] Verify visually at desktop + mobile widths (and ensure no console errors)
+- [x] Ensure `public/js/auth.js` still works with unified `/login.html`.
+- [ ] Run server and sanity-check login redirects.
 
 

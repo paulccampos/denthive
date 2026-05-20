@@ -3,21 +3,37 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Secretary Login • DentHive</title>
+  <title>Login • DentHive</title>
   <link rel="stylesheet" href="/css/theme.css" />
 </head>
 <body>
   <main class="auth-wrap">
     <div class="auth-card">
-      <h1>Secretary Login</h1>
-      <p class="muted">Seed user: <strong>secretary1</strong> / <strong>Secretary123!</strong></p>
+      <h1>DentHive Login</h1>
+      <p class="muted">Choose your role, then sign in. Patient login uses Display ID.</p>
 
       <form id="form">
-        <label>Username</label>
-        <input id="username" class="input" placeholder="input username" required />
+        <label>Role</label>
+        <select id="role" class="input" required>
+          <option value="doctor">Doctor</option>
+          <option value="secretary">Secretary</option>
+          <option value="patient">Patient</option>
+        </select>
+
+        <div id="patientFields">
+          <label>Patient ID (Display ID)</label>
+          <input id="displayId" class="input" placeholder="e.g. PAT-001" />
+        </div>
+
+        <div id="staffFields">
+          <label>Username</label>
+          <input id="username" class="input" placeholder="e.g. doctor1" />
+        </div>
+
 
         <label>Password</label>
-        <input id="password" class="input" type="password" placeholder="iinput password" required />
+        <input id="password" class="input" type="password" placeholder="Enter password" required />
+
 
         <button class="btn primary" type="submit">Sign in</button>
       </form>
@@ -27,6 +43,7 @@
   </main>
 
   <script src="/js/auth.js"></script>
+
   <style>
     .auth-wrap{ padding:40px 18px; max-width:900px; margin:0 auto; }
     .auth-card{ border:1px solid var(--border); border-radius:18px; padding:18px; background:#fff; box-shadow: var(--shadow); }
@@ -37,7 +54,11 @@
   </style>
 
   <script>
-    window.__ROLE__ = 'secretary';
+    (function () {
+      const params = new URLSearchParams(location.search);
+      const roleFromQuery = params.get('role');
+      if (roleFromQuery) window.__ROLE__ = roleFromQuery;
+    })();
   </script>
 </body>
 </html>
